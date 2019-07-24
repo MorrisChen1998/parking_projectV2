@@ -1,4 +1,5 @@
 var validator;
+var mapMarkers = [];
 
 $(function () {
 
@@ -22,17 +23,21 @@ $(function () {
     dateInput: true,
     value: getFewMinutesAfter()
   });
-           //attr(typing,picker)
+  //attr(typing,picker)
   $("#date").attr("readonly", true);
   $("#time").attr("readonly", true);
 
   var data = [
-    { text: "資料庫", value: "database" },
-    { text: "網際網路", value: "internet" },
-    { text: "應用系統整合", value: "system" },
-    { text: "家庭保健", value: "home" },
-    { text: "語言", value: "language" }
+    { text: "八德區廣福路42號", value: 1 },
+    { text: "八德區大忠街141號", value: 2 },
+    { text: "八德區福國北街220號", value: 3 },
+    { text: "八德區桃德路100巷與公園路口", value: 4 },
+    { text: "八德區桃德路與廣豐二街口", value: 5 }
   ]
+  data.forEach(function (column) {
+    mapMarkers.push(getMapPin(column.text));
+  });
+  
   $("#place").kendoComboBox({
     dataTextField: "text",
     dataValueField: "value",
@@ -43,19 +48,24 @@ $(function () {
 
   var map = $("#map");
   map.tinyMap({
-      'zoom'  : 14,
-      'autoLocation': function (loc) {
-          map.tinyMap('modify', {
-              'marker': [{
-                  'addr': [
-                      loc.coords.latitude,
-                      loc.coords.longitude
-                  ]
-              }]
-          });
-      }
+    autoLocation: function (loc) {
+      map.tinyMap('modify', {
+        marker: [{
+          addr: [
+            loc.coords.latitude,
+            loc.coords.longitude
+          ],
+          text: "<label class='map-message'>你的所在位置</label>"
+        }]
+      });
+      console.log(loc);
+    },
+    center: mapMarkers[0].addr,
+    marker: mapMarkers,
+    zoom: 11,
+
   });
-  
+
   $("#openButton").kendoButton().click(function () {
     $("#window").data("kendoWindow").center().open();
   });
@@ -65,8 +75,9 @@ $(function () {
       alert("查無此地");
       return;
     }
+    var address = getMapPin($("#place").data("kendoComboBox").text());
     $("#window").data("kendoWindow").close();
-    
+
   });
 
   $("#cancelButton").kendoButton().click(function () {
@@ -101,6 +112,13 @@ function validate() {
     },
     errorTemplate: ""
   }).data("kendoValidator").validate();
-  
+
   return place;
+}
+
+function getMapPin(address) {
+  return {
+    addr: address,
+    text: "<label class='map-message'>" + address + "</label>"
+  }
 }

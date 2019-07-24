@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>停車資訊</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="../css/kendo.common-material.min.css">
+    <link rel="stylesheet" href="../css/kendo.material.min.css">
+    <link rel="stylesheet" href="../css/uikit.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="command-bar text-center margin-top-10 bar">
+        <button id="openButton" class="k-button">
+            查詢</button>
+    </div>
+    <div id="map" />
+    <div class="bar">
+        <label>edited by 陳牧凡</label>
+    </div>
+    <form id="form">
+        <div id="window">
+            <div class="table">
+                <div class="box">
+                    <label>選擇要停車的地點:</label>
+                    <input id="place" type="text" class="k-textbox" name="place" />
+                </div>
+                <div class="box">
+                    <label>選擇要停車的日期:</label>
+                    <input id="date" type="text" class="k-textbox" name="date" />
+                </div>
+                <div class="box">
+                    <label>選擇要停車的時間:</label>
+                    <input id="time" type="text" class="k-textbox" name="time" />
+                </div>
+            </div>
+            <div class="command-bar text-center margin-top-10 box">
+                <button id="searchButton" class="k-button">
+                    查詢</button>
+                &nbsp;
+                <button id="cancelButton" class="k-button">
+                    取消</button>
+            </div>
+        </div>
+    </form>
+</body>
+
+<script src="../js/jquery-2.1.4.min.js"></script>
+<script src="../js/kendo.all.min.js"></script>
+<script src="../js/uikit.min.js"></script>
+<script src="../jQuery-tinyMap/jquery.tinyMap.js"></script>
+<script src="parkingINFO.js"></script>
+
+</html>
